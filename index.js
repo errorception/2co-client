@@ -6,7 +6,7 @@ var accountMethods = {
 	companyInfo: {path: "/acct/detail_company_info", method: "get"},
 	contactInfo: {path: "/acct/detail_contact_info", method: "get"},
 	pendingPayment: {path: "/acct/detail_pending_payment", method: "get"},
-	payments: {path: "/acct/list_payments", method: "get"}
+	listPayments: {path: "/acct/list_payments", method: "get"}
 };
 
 var salesMethods = {
@@ -27,7 +27,7 @@ var productMethods = {
 	"delete": {path: "/products/delete_product", method: "post"}
 };
 
-var productDetailsMethods = {
+var productOptionsMethods = {
 	details: {path: "/products/detail_option", method: "get"},
 	list: {path: "/products/list_option", method: "get"},
 	create: {path: "/products/create_option", method: "post"},
@@ -109,7 +109,7 @@ module.exports = function(options) {
 		products: buildObject(productMethods, options)
 	};
 
-	client.products.details = buildObject(productDetailsMethods, options);
+	client.products.options = buildObject(productOptionsMethods, options);
 	client.products.coupons = buildObject(productCouponMethods, options);
 
 	eventEmitterize(client, options);
