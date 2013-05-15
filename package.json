@@ -6,6 +6,12 @@
   "repository": "",
   "author": "Rakesh Pai <rakeshpai@errorception.com>",
   "license": "MIT",
+  "keywords": [
+    "2checkout",
+    "2co",
+    "payment",
+    "payment gateway"
+  ],
   "dependencies": {
     "request": "~2.21.0",
     "node_hash": "~0.2.0"
