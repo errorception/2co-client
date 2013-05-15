@@ -5,13 +5,13 @@ A thin node.js client for the 2checkout API.
 
 **This module is work in progress.** Use at your own risk.
 
-# Installation
+## Installation
 
 ```
 $ npm install 2co-client
 ```
 
-# Usage
+## Usage
 
 ```javascript
 var client = require("2co-client")(options);
@@ -21,7 +21,7 @@ client.sales.list(function(err, salesInformation) {
 });
 ```
 
-# Initialization
+## Initialization
 
 ```
 var client = require("2co-client")(options);
@@ -31,7 +31,7 @@ var client = require("2co-client")(options);
 * `username` Your 2checkout API user's username
 * `password` Your 2checkout API user's password
 
-# Methods
+## Methods
 
 The methods provided by the client mirror the API endpoints as specified in the [2co Advanced User Guide [PDF]](https://www.2checkout.com/documentation/Advanced_User_Guide.pdf). It will be helpful to keep a copy of the user guide handy when using this module.
 
@@ -41,14 +41,14 @@ Errors will either be a JS Exception object if there was a problem with the netw
 
 A listing of API methods follows.
 
-## `client.account`
+### `client.account`
 
 * `client.account.companyInfo`: Retrieves your account's company information details. GETs `/acct/detail_company_info`.
 * `client.account.contactInfo`: Retrieve your account's contact information details. GETs `/acct/detail_contact_info`.
 * `client.account.pendingPayment`: Get a detailed estimate of the current pending payment. GETs `/acct/detail_pending_payment`.
 * `client.account.listPayments`: Get a list of past payments. GETs `/acct/list_payments`.
 
-# `client.sales`
+### `client.sales`
 
 * `client.sales.details`: Retrieve information about a specific sale or invoice. GETs `/sales/detail_sale`.
 
@@ -64,7 +64,7 @@ A listing of API methods follows.
 
 * `client.sales.createComment`: Add a comment to a specified sale. POSTs to `/sales/create_comment`.
 
-# `client.products`
+### `client.products`
 
 * `client.products.details`: Retrieve the details for a single product. GETs `/products/detail_product`.
 
