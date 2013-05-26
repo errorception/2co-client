@@ -3,15 +3,15 @@ var request = require("request"),
 	events = require("events");
 
 var accountMethods = {
-	companyInfo: {path: "/acct/detail_company_info", method: "get"},
-	contactInfo: {path: "/acct/detail_contact_info", method: "get"},
-	pendingPayment: {path: "/acct/detail_pending_payment", method: "get"},
-	listPayments: {path: "/acct/list_payments", method: "get"}
+	companyInfo: {path: "/acct/detail_company_info", method: "get", pick: "vendor_company_info"},
+	contactInfo: {path: "/acct/detail_contact_info", method: "get", pick: "vendor_contact_info"},
+	pendingPayment: {path: "/acct/detail_pending_payment", method: "get", pick: "payment"},
+	listPayments: {path: "/acct/list_payments", method: "get", pick: "payments"}
 };
 
 var salesMethods = {
-	details: {path: "/sales/detail_sale", method: "get"},
-	list: {path: "/sales/list_sales", method: "get"},
+	details: {path: "/sales/detail_sale", method: "get", pick: "sale"},
+	list: {path: "/sales/list_sales", method: "get", pick: ["page_info", "sale_summary"]},
 	refundInvoice: {path: "/sales/refund_invoice", method: "post"},
 	refundLineitem: {path: "/sales/refund_lineitem", method: "post"},
 	stopLineitemRecurring: {path: "/sales/stop_lineitem_recurring", method: "post"},
@@ -20,24 +20,24 @@ var salesMethods = {
 };
 
 var productMethods = {
-	details: {path: "/products/detail_product", method: "get"},
-	list: {path: "/products/list_products", method: "get"},
+	details: {path: "/products/detail_product", method: "get", pick: "product"},
+	list: {path: "/products/list_products", method: "get", pick: ["page_info", "products"]},
 	create: {path: "/products/create_product", method: "post"},
 	update: {path: "/products/update_product", method: "post"},
 	del: {path: "/products/delete_product", method: "post"}
 };
 
 var productOptionsMethods = {
-	details: {path: "/products/detail_option", method: "get"},
-	list: {path: "/products/list_option", method: "get"},
+	details: {path: "/products/detail_option", method: "get", pick: "option"},
+	list: {path: "/products/list_option", method: "get", pick: ["page_info", "options"]},
 	create: {path: "/products/create_option", method: "post"},
 	update: {path: "/products/update_option", method: "post"},
 	del: {path: "/products/delete_option", method: "post"}
 };
 
 var productCouponMethods = {
-	details: {path: "/products/detail_coupon", method: "get"},
-	list: {path: "/products/list_coupons", method: "get"},
+	details: {path: "/products/detail_coupon", method: "get", pick: "coupon"},
+	list: {path: "/products/list_coupons", method: "get", pick: "coupon"},
 	create: {path: "/products/create_coupon", method: "post"},
 	update: {path: "/products/update_coupon", method: "post"},
 	del: {path: "/products/delete_coupon", method: "post"}
@@ -52,19 +52,42 @@ function createMethod(methodDetails, options2co) {
 
 		done = done || function(){};
 
-		request({
+		var reqOptions = {
 			url: "https://www.2checkout.com/api" + methodDetails.path,
 			method: methodDetails.method,
 			qs: (methodDetails.method=="get"?options:undefined),
 			form: (methodDetails.method=="post"?options:undefined),
 			headers: {Accept: "application/json"},
 			auth: {username: options2co.username, password: options2co.password}
-		}, function(err, res) {
+		};
+
+		console.log(
+			"[2co]",
+			"[" + new Date() + "]",
+			"[" + options2co.username + "]",
+			reqOptions.method.toUpperCase(),
+			reqOptions.url,
+			reqOptions.qs || reqOptions.form || null
+		);
+
+		request(reqOptions, function(err, res) {
 			if(err) return done(err);
 
-			var response = JSON.parse(res.body);
-			if(response.errors) return done(response.errors);
-			done(null, response);
+			try {
+				var response = JSON.parse(res.body);
+				if(response.errors) return done(response.errors);
+
+				var returnData = [null];
+				if(methodDetails.pick) {
+					((methodDetails.pick instanceof Array)?methodDetails.pick:[methodDetails.pick]).forEach(function(field) {
+						returnData.push(response[field]);
+					});
+				}
+				returnData.push(response);
+				done.apply(null, returnData);
+			} catch(e) {
+				done(e);
+			}
 		});
 	};
 }
