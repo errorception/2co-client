@@ -24,7 +24,7 @@ var productMethods = {
 	list: {path: "/products/list_products", method: "get"},
 	create: {path: "/products/create_product", method: "post"},
 	update: {path: "/products/update_product", method: "post"},
-	"delete": {path: "/products/delete_product", method: "post"}
+	del: {path: "/products/delete_product", method: "post"}
 };
 
 var productOptionsMethods = {
@@ -32,7 +32,7 @@ var productOptionsMethods = {
 	list: {path: "/products/list_option", method: "get"},
 	create: {path: "/products/create_option", method: "post"},
 	update: {path: "/products/update_option", method: "post"},
-	"delete": {path: "/products/delete_option", method: "post"}
+	del: {path: "/products/delete_option", method: "post"}
 };
 
 var productCouponMethods = {
@@ -40,7 +40,7 @@ var productCouponMethods = {
 	list: {path: "/products/list_coupons", method: "get"},
 	create: {path: "/products/create_coupon", method: "post"},
 	update: {path: "/products/update_coupon", method: "post"},
-	"delete": {path: "/products/delete_coupon", method: "post"}
+	del: {path: "/products/delete_coupon", method: "post"}
 };
 
 function createMethod(methodDetails, options2co) {

@@ -74,7 +74,7 @@ A listing of API methods follows.
 
 * `client.products.update`: Update a product. POSTs to `/products/update_product`.
 
-* `client.products.delete`: Deletes a product. POSTs to `/products/delete_product`.
+* `client.products.del`: Deletes a product. POSTs to `/products/delete_product`.
 
 * `client.products.options.details`: Retrieve the details for a single option. GETs `/products/detail_options`.
 
@@ -84,7 +84,7 @@ A listing of API methods follows.
 
 * `client.products.options.update`: Updates a product option. POSTs to `/products/update_option`.
 
-* `client.products.options.delete`: Deletes a product option. POSTs to `/products/delete_option`.
+* `client.products.options.del`: Deletes a product option. POSTs to `/products/delete_option`.
 
 * `client.products.coupons.details`: Retrieve the details for a single coupon. GETs `/products/detail_coupon`.
 
@@ -94,7 +94,7 @@ A listing of API methods follows.
 
 * `client.products.coupons.update`: Updates a coupon. POSTs to `/products/update_coupon`.
 
-* `client.products.coupons.delete`: Deletes a coupon. POSTs to `/products/delete_coupon`.
+* `client.products.coupons.del`: Deletes a coupon. POSTs to `/products/delete_coupon`.
 
 
 ## License
