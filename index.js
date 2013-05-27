@@ -99,31 +99,6 @@ function buildObject(methodsHash, options) {
 	}, {});
 }
 
-function eventEmitterize(client, options) {
-	events.EventEmitter.call(client);
-
-	client.notification = function(req, res, next) {
-		var body;
-		try {
-			body = JSON.parse(res.body);
-			if(options.secretWord && process.env["NODE_ENV"] !== "test") {
-				if(hash.md5((req.body.sale_id + "" + req.body.vendor_id + req.body.invoice_id + options.secretWord).toUpperCase()) == body.md5_hash) {
-					client.emit(body.message_type, body);
-				} else {
-					client.emit("error", new Error("MD5 hash didn't match. Notification was probably spoofed."));
-				}
-			} else {
-				client.emit(body.message_type, body);
-			}
-			res.statusCode = 200;
-		} catch(e) {
-			client.emit("error", e);
-			if(next) next(e);
-			res.statusCode = 500;
-		}
-		res.end("");
-	}
-}
 
 module.exports = function(options) {
 	var client = {
@@ -134,8 +109,6 @@ module.exports = function(options) {
 
 	client.products.options = buildObject(productOptionsMethods, options);
 	client.products.coupons = buildObject(productCouponMethods, options);
-
-	eventEmitterize(client, options);
 
 	return client;
 }
