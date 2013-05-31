@@ -1,6 +1,6 @@
 {
   "name": "2co-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A low-level HTTP client for the 2checkout API",
   "main": "index.js",
   "repository": "",
