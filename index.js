@@ -114,15 +114,15 @@ module.exports = function(options) {
 		if(options.test) return true;
 
 		return hash.md5(
-			data.sale_id + "" + data.sid + data.invoice_id + options.secret
+			data.sale_id + "" + data.vendor_id + data.invoice_id + options.secret
 		).toUpperCase() == data.md5_hash;
 	};
 
 	client.canTrustReturnData = function(data) {
 		if(options.test) return true;
-		
+
 		return hash.md5(
-			options.secret + data.vendor_id + data.order_number + data.total
+			options.secret + data.sid + data.order_number + data.total
 		).toUpperCase() == data.key;
 	}
 
