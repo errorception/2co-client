@@ -100,7 +100,7 @@ A listing of API methods follows.
 
 ## Additional methods
 
-The following methods take away some of the minor chores of withing with the API.
+The following methods some of the chores of working with the API.
 
 ### `client.canTrustINS`
 

@@ -111,8 +111,6 @@ module.exports = function(options) {
 	client.products.coupons = buildObject(productCouponMethods, options);
 
 	client.canTrustINS = function(data) {
-		if(options.test) return true;
-
 		return hash.md5(
 			data.sale_id + "" + data.vendor_id + data.invoice_id + options.secret
 		).toUpperCase() == data.md5_hash;
@@ -120,6 +118,9 @@ module.exports = function(options) {
 
 	client.canTrustReturnData = function(data) {
 		if(options.test) return true;
+
+		// Consider using data.demo above, to eliminate the need for options.test. However, what happens if
+		// the MitM sets data.demo to truthy in production requests? They would bypass all our checks!
 
 		return hash.md5(
 			options.secret + data.sid + data.order_number + data.total
