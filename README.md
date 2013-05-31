@@ -30,6 +30,8 @@ var client = require("2co-client")(options);
 `options` is an object that can contain the following properties:
 * `username` Your 2checkout API user's username
 * `password` Your 2checkout API user's password
+* `secret` Your 2checkout secret
+* `test` Enables demo mode. Bypasses INS and return data checks, and makes them always return true.
 
 ## Methods
 
@@ -95,6 +97,18 @@ A listing of API methods follows.
 * `client.products.coupons.update`: Updates a coupon. POSTs to `/products/update_coupon`.
 
 * `client.products.coupons.del`: Deletes a coupon. POSTs to `/products/delete_coupon`.
+
+## Additional methods
+
+The following methods take away some of the minor chores of withing with the API.
+
+### `client.canTrustINS`
+
+Checks if the INS data returned by 2checkout is valid and not tampered with. You must pass `options.secret` when creating the client for this to work correctly. Will always return true if `options.test` is true. You must pass it the body of the HTTP POST you received, as a JSON object of key-value pairs. If you are using Express along with the `bodyParser`, the `req.body` already contains object as expected.
+
+### `client.canTrustReturnData`
+
+Checks if the return data from the purchase process by 2checkout is valid. You must pass `options.secret` when creating the client for this to work correctly. Will always return true if `options.test` is true. You must pass it the query string as a JSON object of key-value pairs. If you are using Express, the `req.query` already contains the object as expected.
 
 
 ## License
