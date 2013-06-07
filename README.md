@@ -31,6 +31,7 @@ var client = require("2co-client")(options);
 * `username` Your 2checkout API user's username
 * `password` Your 2checkout API user's password
 * `secret` Your 2checkout secret
+* `logFile` (optional) The path to a file that this module should output logs to. Requests and responses are logged here.
 * `test` Enables demo mode. Bypasses INS and return data checks, and makes them always return true.
 
 ## Methods

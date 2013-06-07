@@ -1,4 +1,5 @@
 var request = require("request"),
+	fs = require("fs"),
 	hash = require("node_hash"),
 	events = require("events");
 
@@ -70,11 +71,26 @@ function createMethod(methodDetails, options2co) {
 			reqOptions.qs || reqOptions.form || null
 		);
 
+		if(options2co.logFile) {
+			fs.appendFile(
+				options2co.logFile,
+				"[" + new Date() + "] [request] [" + options2co.username + "] " + reqOptions.method.toUpperCase() + " " + reqOptions.url + " " + (reqOptions.qs || reqoptions.form || "")
+			);
+		}
+
 		request(reqOptions, function(err, res) {
 			if(err) return done(err);
 
 			try {
+				if(options2co.logFile) {
+					fs.appendFile(
+						options2co.logFile,
+						"[" + new Date() + "] [response] [" + options2co.username + "] " + res.body
+					);
+				}
+
 				var response = JSON.parse(res.body);
+
 				if(response.errors) return done(response.errors);
 
 				var returnData = [null];
@@ -120,7 +136,7 @@ module.exports = function(options) {
 		if(options.test) return true;
 
 		// Consider using data.demo above, to eliminate the need for options.test. However, what happens if
-		// the MitM sets data.demo to truthy in production requests? They would bypass all our checks!
+		// the MitM sets data.demo to truthy in production requests? They would be treated as valid requests!
 
 		return hash.md5(
 			options.secret + data.sid + data.order_number + data.total
