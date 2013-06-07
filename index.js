@@ -74,7 +74,8 @@ function createMethod(methodDetails, options2co) {
 		if(options2co.logFile) {
 			fs.appendFile(
 				options2co.logFile,
-				"[" + new Date() + "] [request] [" + options2co.username + "] " + reqOptions.method.toUpperCase() + " " + reqOptions.url + " " + (reqOptions.qs || reqoptions.form || "")
+				"[" + new Date() + "] [api-request] [" + options2co.username + "] " + reqOptions.method.toUpperCase() + " " + reqOptions.url + " " + (reqOptions.qs || reqoptions.form || ""),
+				function() {}
 			);
 		}
 
@@ -85,7 +86,8 @@ function createMethod(methodDetails, options2co) {
 				if(options2co.logFile) {
 					fs.appendFile(
 						options2co.logFile,
-						"[" + new Date() + "] [response] [" + options2co.username + "] " + res.body
+						"[" + new Date() + "] [api-response] [" + options2co.username + "] " + res.body,
+						function() {}
 					);
 				}
 
@@ -127,12 +129,28 @@ module.exports = function(options) {
 	client.products.coupons = buildObject(productCouponMethods, options);
 
 	client.canTrustINS = function(data) {
+		if(options.logFile) {
+			fs.appendFile(
+				options.logFile,
+				"[" + new Date() + "] [INS] " + JSON.stringify(data),
+				function() {}
+			);
+		}
+
 		return hash.md5(
 			data.sale_id + "" + data.vendor_id + data.invoice_id + options.secret
 		).toUpperCase() == data.md5_hash;
 	};
 
 	client.canTrustReturnData = function(data) {
+		if(options.logFile) {
+			fs.appendFile(
+				options.logFile,
+				"[" + new Date() + "] [return] " + JSON.stringify(data),
+				function() {}
+			);
+		}
+
 		if(options.test) return true;
 
 		// Consider using data.demo above, to eliminate the need for options.test. However, what happens if
