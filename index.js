@@ -74,7 +74,7 @@ function createMethod(methodDetails, options2co) {
 		if(options2co.logFile) {
 			fs.appendFile(
 				options2co.logFile,
-				"[" + new Date() + "] [api-request] [" + options2co.username + "] " + reqOptions.method.toUpperCase() + " " + reqOptions.url + " " + (reqOptions.qs || reqoptions.form || ""),
+				"[" + new Date() + "] [api-request] [" + options2co.username + "] " + reqOptions.method.toUpperCase() + " " + reqOptions.url + " " + (reqOptions.qs || reqOptions.form || ""),
 				function() {}
 			);
 		}
