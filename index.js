@@ -74,7 +74,7 @@ function createMethod(methodDetails, options2co) {
 		if(options2co.logFile) {
 			fs.appendFile(
 				options2co.logFile,
-				"[" + new Date() + "] [api-request] [" + options2co.username + "] " + reqOptions.method.toUpperCase() + " " + reqOptions.url + " " + (reqOptions.qs || reqOptions.form || ""),
+				"[" + new Date() + "] [api-request] [" + options2co.username + "] " + reqOptions.method.toUpperCase() + " " + reqOptions.url + " " + JSON.stringify(reqOptions.qs || reqOptions.form || "", null, 2) + "\n",
 				function() {}
 			);
 		}
@@ -86,7 +86,7 @@ function createMethod(methodDetails, options2co) {
 				if(options2co.logFile) {
 					fs.appendFile(
 						options2co.logFile,
-						"[" + new Date() + "] [api-response] [" + options2co.username + "] " + JSON.stringify(res.body),
+						"[" + new Date() + "] [api-response] [" + options2co.username + "] " + JSON.stringify(res.body, null, 2) + "\n",
 						function() {}
 					);
 				}
@@ -132,7 +132,7 @@ module.exports = function(options) {
 		if(options.logFile) {
 			fs.appendFile(
 				options.logFile,
-				"[" + new Date() + "] [INS] " + JSON.stringify(data),
+				"[" + new Date() + "] [INS] " + JSON.stringify(data, null, 2) + "\n",
 				function() {}
 			);
 		}
@@ -146,7 +146,7 @@ module.exports = function(options) {
 		if(options.logFile) {
 			fs.appendFile(
 				options.logFile,
-				"[" + new Date() + "] [return] " + JSON.stringify(data),
+				"[" + new Date() + "] [return] " + JSON.stringify(data, null, 2) + "\n",
 				function() {}
 			);
 		}
