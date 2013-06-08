@@ -86,7 +86,7 @@ function createMethod(methodDetails, options2co) {
 				if(options2co.logFile) {
 					fs.appendFile(
 						options2co.logFile,
-						"[" + new Date() + "] [api-response] [" + options2co.username + "] " + res.body,
+						"[" + new Date() + "] [api-response] [" + options2co.username + "] " + JSON.stringify(res.body),
 						function() {}
 					);
 				}
