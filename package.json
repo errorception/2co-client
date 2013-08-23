@@ -3,7 +3,10 @@
   "version": "0.0.11",
   "description": "A low-level HTTP client for the 2checkout API",
   "main": "index.js",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/errorception/2co-client.git"
+  },
   "author": "Rakesh Pai <rakeshpai@errorception.com>",
   "license": "MIT",
   "keywords": [
