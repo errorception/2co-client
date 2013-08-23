@@ -3,7 +3,7 @@
 
 A thin node.js client for the 2checkout API.
 
-**This module is work in progress.** Use at your own risk.
+In production use, running the payment system at [Errorception](http://errorception.com/).
 
 ## Installation
 
@@ -101,7 +101,7 @@ A listing of API methods follows.
 
 ## Additional methods
 
-The following methods some of the chores of working with the API.
+The following methods simplify some of the chores of working with the API.
 
 ### `client.canTrustINS`
 
