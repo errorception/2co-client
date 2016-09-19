@@ -16,7 +16,7 @@
     "payment gateway"
   ],
   "dependencies": {
-    "request": "~2.21.0",
-    "node_hash": "~0.2.0"
+    "node_hash": "~0.2.0",
+    "request": "^2.75.0"
   }
 }
