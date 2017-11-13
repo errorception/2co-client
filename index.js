@@ -3,6 +3,10 @@ var request = require("request"),
 	hash = require("node_hash"),
 	events = require("events");
 
+var util = require("util");
+
+var promisify = util.promisify ? util.promisify : function(f) { return f; };
+
 var accountMethods = {
 	companyInfo: {path: "/acct/detail_company_info", method: "get", pick: "vendor_company_info"},
 	contactInfo: {path: "/acct/detail_contact_info", method: "get", pick: "vendor_contact_info"},
@@ -45,7 +49,7 @@ var productCouponMethods = {
 };
 
 function createMethod(methodDetails, options2co) {
-	return function(options, done) {
+	return promisify(function(options, done) {
 		if(typeof options !== "object") {
 			done = options;
 			options = {};
@@ -107,7 +111,7 @@ function createMethod(methodDetails, options2co) {
 				done(e);
 			}
 		});
-	};
+	});
 }
 
 function buildObject(methodsHash, options) {
