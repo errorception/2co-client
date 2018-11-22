@@ -1,3 +1,6 @@
+**Unmaintained**: (2018-11-22) 2co has recently changed their API, and the new API is very different and vast. I don't need most of the things in the API, so it doesn't make sense for me to maintain a SDK for their API. While the code here works as of today, the API itself only works partially, and expect the API to be EOL'd soon.
+
+
 2co-client
 ===
 
