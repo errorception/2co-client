@@ -17,6 +17,6 @@
   ],
   "dependencies": {
     "node_hash": "~0.2.0",
-    "request": "^2.75.0"
+    "request": "^2.88.0"
   }
 }
